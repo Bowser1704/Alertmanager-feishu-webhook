@@ -9,9 +9,9 @@ import (
 
 	"go.uber.org/zap"
 
-	"github.com/muxih4ck/Go-Web-Application-Template/handler"
-	"github.com/muxih4ck/Go-Web-Application-Template/log"
-	"github.com/muxih4ck/Go-Web-Application-Template/pkg/errno"
+	"github.com/Bowser1704/Alertmanager-feishu-webhook/handler"
+	"github.com/Bowser1704/Alertmanager-feishu-webhook/log"
+	"github.com/Bowser1704/Alertmanager-feishu-webhook/pkg/errno"
 
 	"github.com/gin-gonic/gin"
 	"github.com/willf/pad"

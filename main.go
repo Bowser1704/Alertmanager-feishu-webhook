@@ -6,11 +6,10 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/muxih4ck/Go-Web-Application-Template/config"
-	"github.com/muxih4ck/Go-Web-Application-Template/log"
-	"github.com/muxih4ck/Go-Web-Application-Template/model"
-	"github.com/muxih4ck/Go-Web-Application-Template/router"
-	"github.com/muxih4ck/Go-Web-Application-Template/router/middleware"
+	"github.com/Bowser1704/Alertmanager-feishu-webhook/config"
+	"github.com/Bowser1704/Alertmanager-feishu-webhook/log"
+	"github.com/Bowser1704/Alertmanager-feishu-webhook/router"
+	"github.com/Bowser1704/Alertmanager-feishu-webhook/router/middleware"
 
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/pflag"
@@ -19,7 +18,7 @@ import (
 )
 
 var (
-	cfg = pflag.StringP("config", "c", "", "apiserver config file path.")
+	cfg = pflag.StringP("config", "c", "", "webhook config file path.")
 )
 
 func main() {
@@ -33,10 +32,6 @@ func main() {
 	// logger sync
 	defer log.SyncLogger()
 
-	// init db
-	model.DB.Init()
-	defer model.DB.Close()
-
 	// Set gin mode.
 	gin.SetMode(viper.GetString("runmode"))
 
@@ -47,7 +42,6 @@ func main() {
 	router.Load(
 		// Cores.
 		g,
-
 		// MiddleWares.
 		middleware.Logging(),
 		middleware.RequestId(),
@@ -80,5 +74,5 @@ func pingServer() error {
 		log.Info("Waiting for the router, retry in 1 second.")
 		time.Sleep(time.Second)
 	}
-	return errors.New("Cannot connect to the router.")
+	return errors.New("Cannot connect to the router")
 }

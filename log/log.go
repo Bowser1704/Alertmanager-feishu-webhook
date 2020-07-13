@@ -3,10 +3,12 @@
 package log
 
 import (
+	"os"
+
+	"github.com/spf13/viper"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"
-	"os"
 )
 
 var (
@@ -22,11 +24,11 @@ type Logger interface {
 
 func init() {
 	hook := lumberjack.Logger{
-		Filename:   "./logs/api_server1.log", // 日志文件路径
-		MaxSize:    128,                      // 每个日志文件保存的最大尺寸 单位：M
-		MaxBackups: 5,                        // 日志文件最多保存多少个备份
-		MaxAge:     30,                       // 文件最多保存多少天
-		Compress:   true,                     // 是否压缩
+		Filename:   viper.GetString("log.logger_file"), // 日志文件路径
+		MaxSize:    128,                                // 每个日志文件保存的最大尺寸 单位：M
+		MaxBackups: 5,                                  // 日志文件最多保存多少个备份
+		MaxAge:     30,                                 // 文件最多保存多少天
+		Compress:   true,                               // 是否压缩
 	}
 	encoderConfig := zapcore.EncoderConfig{
 		TimeKey:        "time",
@@ -56,7 +58,7 @@ func init() {
 	// 开启文件及行号
 	development := zap.Development()
 	// 设置初始化字段
-	filed := zap.Fields(zap.String("serviceName", "serviceName"))
+	filed := zap.Fields(zap.String("servicename", "feishu-webhook"))
 	// 构造日志
 	logger = zap.New(core, caller, development, filed)
 }
