@@ -1,5 +1,6 @@
 .DS_Store
 main
+logs
 log/*.log
 *.log
 .idea
