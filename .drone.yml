@@ -6,7 +6,7 @@ steps:
   - name: build image
     image: plugins/docker # 构建docker镜像专用镜像
     volumes:
-      - name: docker # 挂载下面定义的Volumn
+      - name: dockersock # 挂载下面定义的Volumn
         path: /var/run/docker.sock # 与宿主机用同一docker
     settings: # plugins/docker用到的相关配置
       username:
@@ -16,3 +16,7 @@ steps:
       repo: registry.cn-hangzhou.aliyuncs.com/bowser/alertmanager-feishu-webhook # 要推送docker地址
       registry: registry.cn-hangzhou.aliyuncs.com # 使用的docker hub地址
       tags: ${DRONE_BUILD_NUMBER} # docker的tag值, 默认每次加1
+volumes:
+- name: dockersock
+  host:
+    path: /var/run/docker.sock
