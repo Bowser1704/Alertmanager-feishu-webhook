@@ -4,7 +4,5 @@ ENV GOPROXY "https://mirrors.aliyun.com/goproxy/"
 WORKDIR /src/Alertmanager-feishu-webhook
 COPY . /src/Alertmanager-feishu-webhook
 RUN make
-FROM ubuntu 
-COPY --from=0 /src/Alertmanager-feishu-webhook .
 EXPOSE 8080
 CMD ["./main", "-c", "conf/config.yaml"]
